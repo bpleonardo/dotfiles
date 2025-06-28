@@ -35,6 +35,8 @@
   colorMoved = default
 [init]
   defaultBranch = main
+[url "git@github.com:"]
+  insteadOf = "gh:"
 [include]
   path = "config.local"
 # vim: sw=2
