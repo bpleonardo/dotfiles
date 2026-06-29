@@ -1,4 +1,8 @@
-return {
+-- Brief: formatter plugin for Neovim
+local function gh(repo) return 'https://github.com/' .. repo end
+
+vim.pack.add { gh 'stevearc/conform.nvim' }
+require('conform').setup {
   notify_on_error = false,
   format_on_save = function(bufnr)
     -- Disable "format_on_save lsp_fallback" for languages that don't
@@ -10,15 +14,14 @@ return {
       lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
     }
   end,
+  default_format_opts = {
+    lsp_format = 'fallback', -- Use external formatters if configured below, otherwise use LSP formatting. Set to `false` to disable LSP formatting entirely.
+  },
   formatters_by_ft = {
     lua = { 'stylua' },
-    -- Conform can also run multiple formatters sequentially
-    -- python = { "isort", "black" },
-    --
-    -- You can use a sub-list to tell conform to run *until* a formatter
-    -- is found.
-    -- javascript = { { "prettierd", "prettier" } },
   },
 }
+
+vim.keymap.set({ 'n', 'v' }, '<leader>f', function() require('conform').format { async = true } end, { desc = '[F]ormat buffer' })
 
 -- vim: ts=2 sts=2 sw=2 et

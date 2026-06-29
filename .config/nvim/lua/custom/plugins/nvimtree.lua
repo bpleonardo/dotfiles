@@ -1,3 +1,7 @@
+local function gh(repo) return 'https://github.com/' .. repo end
+
+vim.pack.add { gh 'nvim-tree/nvim-tree.lua' }
+
 local function on_attach(bufnr)
   local api = require 'nvim-tree.api'
 
@@ -62,7 +66,7 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'C', api.tree.change_root_to_node, opts 'CD')
 end
 
-return {
+require('nvim-tree').setup {
   renderer = {
     group_empty = true,
   },
