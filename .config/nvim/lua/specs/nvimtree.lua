@@ -5,9 +5,7 @@ vim.pack.add { gh 'nvim-tree/nvim-tree.lua' }
 local function on_attach(bufnr)
   local api = require 'nvim-tree.api'
 
-  local function opts(desc)
-    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
+  local function opts(desc) return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true } end
 
   vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node, opts 'CD')
   vim.keymap.set('n', '<C-e>', api.node.open.replace_tree_buffer, opts 'Open: In Place')

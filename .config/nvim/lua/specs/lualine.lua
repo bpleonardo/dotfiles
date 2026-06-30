@@ -8,8 +8,7 @@ require('lualine').setup {
     disabled_filetypes = {
       statusline = { 'NvimTree' },
     },
-  }
+  },
 }
-
 
 -- vim: ts=2 sts=2 sw=2 et

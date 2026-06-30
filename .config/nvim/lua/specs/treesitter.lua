@@ -2,10 +2,10 @@
 
 local function gh(repo) return 'https://github.com/' .. repo end
 
-vim.pack.add { 
-  gh 'nvim-treesitter/nvim-treesitter', 
+vim.pack.add {
+  gh 'nvim-treesitter/nvim-treesitter',
   gh 'nvim-treesitter/nvim-treesitter-context',
-  gh 'JoosepAlviste/nvim-ts-context-commentstring'
+  gh 'JoosepAlviste/nvim-ts-context-commentstring',
 }
 
 -- Ensure basic parsers are installed
@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 require('treesitter-context').setup {
-  multiline_threshold = 1
+  multiline_threshold = 1,
 }
 
 require('ts_context_commentstring').setup {

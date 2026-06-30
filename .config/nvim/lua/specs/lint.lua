@@ -27,3 +27,5 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
     if vim.bo.modifiable then lint.try_lint() end
   end,
 })
+
+-- vim: ts=2 sts=2 sw=2 et

@@ -9,11 +9,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Disable relative numbering when in insert mode.
 local NumberToggle = vim.api.nvim_create_augroup('NumberToggle', { clear = true })
-vim.api.nvim_create_autocmd(
-  { 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' },
-  { command = [[if &nu && mode() != "i" | set rnu | endif]], group = NumberToggle }
-)
-vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, { command = [[if &nu | set nornu | endif]], group = NumberToggle })
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
+  group = NumberToggle,
+  callback = function()
+    if vim.wo.number then vim.wo.relativenumber = true end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
+  group = NumberToggle,
+  callback = function() vim.wo.relativenumber = false end,
+})
 
 -- Disable tmux status while inside nvim. Susceptible to race conditions.
 local TmuxStatus = vim.api.nvim_create_augroup('TmuxStatus', { clear = true })
@@ -30,9 +36,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
-  callback = function()
-    vim.fn.jobstart('tmux set status on', { detach = true })
-  end,
+  callback = function() vim.fn.jobstart('tmux set status on', { detach = true }) end,
   once = true,
   group = TmuxStatus,
 })
@@ -43,9 +47,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     -- buffer is a directory
     local directory = vim.fn.isdirectory(data.file) == 1
 
-    if not directory then
-      return
-    end
+    if not directory then return end
 
     -- change to the directory
     vim.cmd.cd(data.file)
@@ -54,3 +56,5 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     require('nvim-tree.api').tree.open()
   end,
 })
+
+-- vim: ts=2 sts=2 sw=2 et
