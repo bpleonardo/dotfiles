@@ -6,5 +6,5 @@ end
 abbr rm 'rm -i'
 abbr nvsu 'sudoedit'
 abbr cat 'bat -pp'
-abbr ls 'exa -a --icons'
-abbr exa 'exa --icons'
+abbr ls 'exa --icons -a'
+abbr exa 'exa --icons always'
