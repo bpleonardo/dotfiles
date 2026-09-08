@@ -1,0 +1,12 @@
+[Unit]
+Description=Fix Fuxi-H3 hardware mixer volume
+After=wireplumber.service pipewire-pulse.service
+Wants=wireplumber.service pipewire-pulse.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sleep 10
+ExecStart=%h/.local/bin/fuxi-h3-volume-fix.sh
+
+[Install]
+WantedBy=default.target
